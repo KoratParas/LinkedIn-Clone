@@ -8,6 +8,7 @@ import { login, logout, selectUser } from "./features/userSlice";
 import Login from "./Login";
 import { auth } from "./firebase";
 import { onAuthStateChanged } from "firebase/auth";
+import Widgets from "./Widgets";
 
 function App() {
   const user = useSelector(selectUser);
@@ -37,11 +38,9 @@ function App() {
         <Login />
       ) : (
         <div className="app__body">
-          {/* App body */}
           <Sidebar />
           <Feed />
-          {/* feed */}
-          {/* widgets */}
+          <Widgets />
         </div>
       )}
     </div>

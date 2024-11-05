@@ -16,10 +16,14 @@ import {
   orderBy,
   query,
 } from "firebase/firestore";
+import { useSelector } from "react-redux";
+import { selectUser } from "./features/userSlice";
+import FlipMove from "react-flip-move";
 
 function Feed() {
   const [posts, setPosts] = useState([]);
   const [input, setInput] = useState("");
+  const user = useSelector(selectUser);
 
   const fetchPosts = async () => {
     const postsQuery = query(
@@ -44,10 +48,10 @@ function Feed() {
 
     try {
       await addDoc(collection(db, "posts"), {
-        name: "Paras Korat",
-        description: "This is a test",
+        name: user.displayName,
+        description: user.email,
         message: input,
-        photoUrl: "",
+        photoUrl: user.photoUrl ?? "",
         timestamp: serverTimestamp(),
       });
       setInput("");
@@ -82,16 +86,17 @@ function Feed() {
           />
         </div>
       </div>
-
-      {posts.map(({ id, data: { name, description, message, photoUrl } }) => (
-        <Post
-          key={id}
-          name={name}
-          description={description}
-          message={message}
-          photoUrl={photoUrl}
-        />
-      ))}
+      <FlipMove>
+        {posts.map(({ id, data: { name, description, message, photoUrl } }) => (
+          <Post
+            key={id}
+            name={name}
+            description={description}
+            message={message}
+            photoUrl={photoUrl}
+          />
+        ))}
+      </FlipMove>
     </div>
   );
 }

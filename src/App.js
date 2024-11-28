@@ -33,7 +33,6 @@ function App() {
   return (
     <div className="app">
       <Header />
-      {console.log(user)}
       {!user ? (
         <Login />
       ) : (

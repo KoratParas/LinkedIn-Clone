@@ -24,7 +24,7 @@ jobs:
           echo "REACT_APP_FIREBASE_APP_ID=${{ secrets.FIREBASE_APP_ID }}" >> $GITHUB_ENV
 
       # Step 3: Install dependencies
-      - run: yarn install # Sync package-lock.json with dependencies
+      - run: yarn install
 
       # Step 4: Build the project
       - run: yarn build
